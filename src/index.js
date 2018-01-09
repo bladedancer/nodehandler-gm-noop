@@ -1,36 +1,23 @@
 const sdk = require('axway-flow-sdk');
-const action = require('./action');
 
 const flownodes = sdk.init(module);
 
-// The unique name of your flow-node.  You can define multiple flow-nodes in this
-// file, but one is typical.
 flownodes.add('gm-noop', {
-	name: 'Gm-noop',
-	// file support for: svg, png, gif, bmp, jpg, and tiff
+	name: 'No-Op',
 	icon: 'icon.svg',
 	description: 'A no-op node.'
 })
-	// Add a method to your flow-node.
-	.method('todo', {
-		name: 'TODO',
-		description: 'TODO'
+	.method('noop', {
+		name: 'noop',
+		description: 'No-op.'
 	})
-	// Add parameter(s) to your method.
-	.parameter('todo', {
-		description: 'TODO',
-		type: 'string'
-	})
-	// Once all parameters for the method are defined, add output(s) to your method.
 	.output('next', {
 		name: 'Next',
-		description: 'TODO',
-		context: '$.todo',
+		description: 'Next node.',
 		schema: {
-			type: 'string'
+			type: null
 		}
 	})
-	// Provide the actual javascript implementation.  ES6+ supported through babel.
-	.action(action);
+	.action((req, cb) => { cb.next(); });
 
 exports = module.exports = flownodes;
